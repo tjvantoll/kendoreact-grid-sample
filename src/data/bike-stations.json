@@ -2859,7 +2859,8 @@
       "is_returning": 0,
       "last_reported": 0,
       "is_charging_station": false,
-      "status": "END_OF_LIFE"
+      "status": "END_OF_LIFE",
+      "zone": "East"
     },
     {
       "station_id": "7167",
@@ -5018,7 +5019,8 @@
       "is_returning": 0,
       "last_reported": 0,
       "is_charging_station": false,
-      "status": "END_OF_LIFE"
+      "status": "END_OF_LIFE",
+      "zone": "East"
     },
     {
       "station_id": "7301",
@@ -5359,7 +5361,8 @@
       "is_returning": 0,
       "last_reported": 0,
       "is_charging_station": false,
-      "status": "END_OF_LIFE"
+      "status": "END_OF_LIFE",
+      "zone": "West"
     },
     {
       "station_id": "7326",
@@ -6510,7 +6513,8 @@
       "is_returning": 0,
       "last_reported": 0,
       "is_charging_station": false,
-      "status": "END_OF_LIFE"
+      "status": "END_OF_LIFE",
+      "zone": "West"
     },
     {
       "station_id": "7391",
