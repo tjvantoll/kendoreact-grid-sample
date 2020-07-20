@@ -13,7 +13,6 @@ function App() {
   const [result, setResult] = React.useState(process(bikeStations, dataState));
 
   const onDataStateChange = (event) => {
-    console.log(event.dataState);
     setDataState(event.dataState);
     setResult(process(bikeStations, event.dataState));
   }
@@ -29,15 +28,17 @@ function App() {
         data={result}
         onDataStateChange={onDataStateChange}
         groupable={true}
+        filterable={true}
         expandField="expanded"
         onExpandChange={onExpandChange}
+        editField="inEdit"
         { ...dataState }
         >
-        <GridColumn field="station_id" title="ID" />
-        <GridColumn field="num_bikes_available" title="Bikes Available" />
+        <GridColumn field="station_id" title="ID" filter="numeric" />
+        <GridColumn field="num_bikes_available" title="Bikes Available" filter="numeric" />
         <GridColumn field="num_bikes_disabled" title="Bikes Disabled" />
         <GridColumn field="num_docks_available" title="Docks Available" />
-        <GridColumn field="is_charging_station" title="Charging Station" />
+        <GridColumn field="is_charging_station" filter="boolean" title="Charging Station" />
         <GridColumn field="zone" title="Zone" />
       </Grid>
     </>
