@@ -1,15 +1,19 @@
 import React from "react";
-import "@progress/kendo-theme-default/dist/all.css";
-import { process } from "@progress/kendo-data-query";
-import "./App.css";
-
-import data from "./data/bike-stations.json";
+import "@progress/kendo-theme-material/dist/all.css";
 import { Grid, GridColumn } from "@progress/kendo-react-grid";
+import { process } from "@progress/kendo-data-query";
 
-function App() {
-  const bikeStations = data.stations;
+import { bikeStations } from "./data/bike-stations";
 
-  const [dataState, setDataState] = React.useState({ group: [{ field: "zone" }]})
+const BooleanCell = (props) => {
+  return (
+    <td>{props.dataItem[props.field] ? '✅' : '❌'}</td>
+  )
+}
+
+export default function App() {
+
+  const [dataState, setDataState] = React.useState({ skip: 0, take: 10 })
   const [result, setResult] = React.useState(process(bikeStations, dataState));
 
   const onDataStateChange = (event) => {
@@ -17,32 +21,21 @@ function App() {
     setResult(process(bikeStations, event.dataState));
   }
 
-  const onExpandChange = (event) => {
-    event.dataItem[event.target.props.expandField] = event.value;
-    setResult(Object.assign({}, result));
-  }
-
   return (
-    <>
-      <Grid
-        data={result}
-        onDataStateChange={onDataStateChange}
-        groupable={true}
-        filterable={true}
-        expandField="expanded"
-        onExpandChange={onExpandChange}
-        editField="inEdit"
-        { ...dataState }
-        >
-        <GridColumn field="station_id" title="ID" filter="numeric" />
-        <GridColumn field="num_bikes_available" title="Bikes Available" filter="numeric" />
-        <GridColumn field="num_bikes_disabled" title="Bikes Disabled" />
-        <GridColumn field="num_docks_available" title="Docks Available" />
-        <GridColumn field="is_charging_station" filter="boolean" title="Charging Station" />
-        <GridColumn field="zone" title="Zone" />
-      </Grid>
-    </>
+    <Grid
+      data={result}
+      filterable={true}
+      onDataStateChange={onDataStateChange}
+      pageable={true}
+      total={bikeStations.length}
+      {...dataState}
+    >
+      <GridColumn field="station_id" title="ID" />
+      <GridColumn field="num_bikes_available" title="Bikes Available" />
+      <GridColumn field="num_bikes_disabled" title="Bikes Disabled" />
+      <GridColumn field="num_docks_available" title="Docks Available" />
+      <GridColumn field="is_charging_station" title="Charging Station" cell={BooleanCell} />
+      <GridColumn field="zone" title="Zone" />
+    </Grid>
   );
 }
-
-export default App;
